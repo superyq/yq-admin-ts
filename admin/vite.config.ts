@@ -17,10 +17,11 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
   return {
     root: process.cwd(),
     base: "/",
+    publicDir: "admin",
     mode: "production",
-    plugins: [vue()],
     define: {
       __VITE_TITLE__: JSON.stringify(env.VITE_TITLE),
     },
+    plugins: [vue()],
   };
 });
