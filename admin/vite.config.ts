@@ -6,7 +6,6 @@ import { resolve } from "path";
 export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
-  console.log(1, __dirname, resolve(__dirname, "./src"));
   if (command == "serve") {
     // 'server' 开发环境
     console.log("开发");
@@ -39,10 +38,10 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
       },
     },
     build: {
-      outDir: 'dist',
-      assetsDir: 'assets',
+      outDir: "dist",
+      assetsDir: "assets",
       cssCodeSplit: true,
-      emptyOutDir: true
-    }
+      emptyOutDir: true,
+    },
   };
 });
