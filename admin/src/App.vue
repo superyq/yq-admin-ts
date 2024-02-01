@@ -1,16 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <img src="../public/1.jpg" />
-  <div :class="['u__flex-c']">哇哈哈</div>
-  <div class="u__border u__ellipsis-auto box">
-    哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈
-  </div>
+  <div>demo</div>
 </template>
 
 <style scoped>
-.box {
-  width: 500px;
-  height: 50px;
-}
 </style>
