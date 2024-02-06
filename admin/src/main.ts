@@ -2,7 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 
 import "@/assets/css/index.scss";
-import router from "@/router/index.js";
+// import router from "./router/index.ts";
+import router from "@/router/index.ts";
 
 const app = createApp(App);
 
