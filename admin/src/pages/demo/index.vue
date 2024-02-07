@@ -6,12 +6,13 @@ const route = useRoute();
 const router = useRouter();
 
 const handleGo = () => {
-  router.push({ path: "/demo/2" });
+  router.push({ name: "home", query: { name: 'yq' } }).then(res => {
+    console.log(11, res)
+  });
 };
-console.log(1, route.params);
 
 watchEffect(() => {
-  console.log(1, route.params);
+  console.log(1, route.params, route.query);
 });
 </script>
 

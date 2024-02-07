@@ -10,31 +10,26 @@ const router = createRouter({
       component: ip("404"),
     },
     {
+      path: "/",
+      name: '/',
+      component: ip("home"),
+    },
+    {
       path: "/home",
-      component: ip("home"),
+      name: "home",
+      redirect: { name: '/' },
     },
     {
-      path: "/demo/:id?",
-      component: ip("demo"),
-      children: [
-        {
-          path: "demo1",
-          component: ip("home"),
-        },
-        {
-          path: "demo2",
-          component: ip("demo"),
-        },
-        {
-          path: "",
-          component: ip("home"),
-        },
-      ],
+      path: "/demo/:name",
+      redirect: (to) => {
+        return { path: 'demo', query: { q: to.params.name } }
+      }
     },
     {
-      path: "/:id(\\d+)+",
-      component: ip("home"),
-    },
+      path: '/demo',
+      name: 'demo',
+      component: ip('demo')
+    }
   ],
 });
 
