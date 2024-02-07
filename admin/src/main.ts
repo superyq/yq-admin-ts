@@ -7,6 +7,7 @@ import router from "@/router/index.ts";
 
 const app = createApp(App);
 
+app.provide("g-name", "yqcoder");
 app.use(router);
 
 app.mount("#app");

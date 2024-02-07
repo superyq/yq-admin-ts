@@ -4,12 +4,14 @@ import { watchEffect } from "vue";
 
 const route = useRoute();
 const router = useRouter();
+const props = defineProps({
+  id: Number,
+});
 
 const handleGo = () => {
-  router.push({ name: "home", query: { name: 'yq' } }).then(res => {
-    console.log(11, res)
-  });
+  router.push({ name: "Home", query: { name: "yq" } });
 };
+console.log(1, props.id);
 
 watchEffect(() => {
   console.log(1, route.params, route.query);
