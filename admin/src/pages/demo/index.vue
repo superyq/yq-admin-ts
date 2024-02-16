@@ -1,26 +1,38 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from "vue-router";
-import { watchEffect } from "vue";
+import { useRouter, onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
+import AppLink from "@/components/AppLink.vue";
 
-const route = useRoute();
 const router = useRouter();
-const props = defineProps({
-  id: Number,
+
+onBeforeRouteUpdate(() => {
+  console.log("更新路由");
 });
 
-const handleGo = () => {
-  router.push({ name: "Home", query: { name: "yq" } });
+onBeforeRouteLeave(() => {
+  console.log("离开路由");
+});
+
+const changeRoute = () => {
+  router.push("/demo/2");
 };
-console.log(1, props.id);
-
-watchEffect(() => {
-  console.log(1, route.params, route.query);
-});
 </script>
 
 <template>
-  <div class="demo" @click="handleGo">demo</div>
-  <RouterView></RouterView>
+  <div class="p-demo u__border">
+    <div class="demo" @click="changeRoute">改变路由</div>
+    <AppLink to="http://www.baidu.com" _target="_blank"> 去百度 </AppLink>
+    <AppLink to="/home"> 去首页 </AppLink>
+    <form class="demo">
+      <input type="text" />
+    </form>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.p-demo {
+  height: 1920px;
+  .demo {
+    height: 500px;
+  }
+}
+</style>
