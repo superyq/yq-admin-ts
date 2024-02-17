@@ -1,31 +1,21 @@
 <script setup lang="ts">
-import { useRouter, onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
-import AppLink from "@/components/AppLink.vue";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-onBeforeRouteUpdate(() => {
-  console.log("更新路由");
-});
-
-onBeforeRouteLeave(() => {
-  console.log("离开路由");
-});
-
-const changeRoute = () => {
-  router.push("/demo/2");
+const addRouters = () => {
+  router.addRoute({
+    path: "/aa",
+    component: () => import("@/pages/home/index.vue"),
+  });
+  router.replace(router.currentRoute.value.fullPath);
 };
+console.log(1, router.hasRoute("Home"));
+console.log(2, router.getRoutes());
 </script>
 
 <template>
-  <div class="p-demo u__border">
-    <div class="demo" @click="changeRoute">改变路由</div>
-    <AppLink to="http://www.baidu.com" _target="_blank"> 去百度 </AppLink>
-    <AppLink to="/home"> 去首页 </AppLink>
-    <form class="demo">
-      <input type="text" />
-    </form>
-  </div>
+  <div @click="addRouters">添加路由</div>
 </template>
 
 <style lang="scss" scoped>

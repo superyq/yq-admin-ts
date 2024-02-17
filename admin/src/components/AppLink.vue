@@ -5,7 +5,6 @@ import { computed } from "vue";
 const props = defineProps({
   // @ts-ignore
   ...RouterLink.props,
-  inactiveClass: String,
   _target: {
     type: String,
     default: "_self",
