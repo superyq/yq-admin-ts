@@ -1,28 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useDemoStore } from "@/store/demo.ts";
 
-const router = useRouter();
+const { name, changeName } = useDemoStore();
+console.log(name) // 'yq'
 
-const addRouters = () => {
-  router.addRoute({
-    path: "/aa",
-    component: () => import("@/pages/home/index.vue"),
-  });
-  router.replace(router.currentRoute.value.fullPath);
-};
-console.log(1, router.hasRoute("Home"));
-console.log(2, router.getRoutes());
+const handleChange = () => {
+  changeName();
+  console.log(name) // 'yq'
+}
 </script>
 
 <template>
-  <div @click="addRouters">添加路由</div>
+  <div>{{ name }}</div>
+  <div @click="handleChange">change name</div>
 </template>
 
-<style lang="scss" scoped>
-.p-demo {
-  height: 1920px;
-  .demo {
-    height: 500px;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
