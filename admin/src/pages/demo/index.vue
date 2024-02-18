@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { useDemoStore } from "@/store/demo.ts";
 
-const { name, changeName } = useDemoStore();
-console.log(name) // 'yq'
-
-const handleChange = () => {
-  changeName();
-  console.log(name) // 'yq'
-}
+const deomStore = useDemoStore();
 </script>
 
 <template>
-  <div>{{ name }}</div>
-  <div @click="handleChange">change name</div>
+  <div>
+    <span>{{ deomStore.yearAfter(10) }}</span>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
