@@ -4,10 +4,11 @@ import "@/assets/css/index.scss";
 import router from "@/router/index.ts";
 import { createPinia } from "pinia";
 
+const pinia = createPinia();
 
 const app = createApp(App);
 
 app.use(router);
-app.use(createPinia() as any);
+app.use(pinia);
 
 app.mount("#app");
