@@ -26,20 +26,20 @@ export default [
         component: () => import("@/pages/demo/index.vue"),
       },
       {
-        path: "/userinfo",
-        name: "userinfo",
-        meta: {
-          title: "个人信息",
-        },
-        component: () => import("@/pages/userinfo/index.vue"),
-      },
-      {
         path: "/editpassword",
         name: "editpassword",
         meta: {
           title: "修改密码",
         },
         component: () => import("@/pages/editpassword/index.vue"),
+      },
+      {
+        path: "/userinfo",
+        name: "userinfo",
+        meta: {
+          title: "个人信息",
+        },
+        component: () => import("@/pages/userinfo/index.vue"),
       },
       {
         path: "/dict/:id",

@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
+  <div class="p-layout">
     <router-view></router-view>
   </div>
 </template>

@@ -1,11 +1,7 @@
-<script setup lang="ts">
-import { useDemoStore } from "@/store/demo.ts";
-
-const demoStore = useDemoStore();
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>{{ demoStore.name }}</div>
+  <div class="p-home">home</div>
 </template>
 
 <style lang="scss" scoped></style>

@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div></div>
+  <div class="p-userinfo">userinfo</div>
 </template>
 
 <style lang="scss" scope></style>
