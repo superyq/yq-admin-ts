@@ -1,4 +1,4 @@
-export default [
+export const baseRouter = [
   // 所有未知页面都是404
   {
     path: "/:catchAll(.*)",
@@ -20,33 +20,21 @@ export default [
       {
         path: "/demo",
         name: "demo",
-        meta: {
-          title: "demo",
-        },
         component: () => import("@/pages/demo/index.vue"),
       },
       {
         path: "/editpassword",
         name: "editpassword",
-        meta: {
-          title: "修改密码",
-        },
         component: () => import("@/pages/editpassword/index.vue"),
       },
       {
         path: "/userinfo",
         name: "userinfo",
-        meta: {
-          title: "个人信息",
-        },
         component: () => import("@/pages/userinfo/index.vue"),
       },
       {
         path: "/dict/:id",
         name: "dict",
-        meta: {
-          title: "字典数据",
-        },
         component: () => import("@/pages/dict/index.vue"),
       },
     ],
