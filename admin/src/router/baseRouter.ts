@@ -5,10 +5,7 @@ export const baseRouter = [
     component: () => import("@/pages/404/index.vue"),
   },
   {
-    path: "",
-    redirect: "/login",
-  },
-  {
+    alias: "/",
     path: "/login",
     name: "login",
     component: () => import("@/pages/login/index.vue"),

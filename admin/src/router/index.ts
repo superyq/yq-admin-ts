@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { baseRouter } from "./baseRouter.ts";
 
-// const whiteList = ["/", "/login"];
-const routes = baseRouter;
+const whiteList = ["/", "/login"];
+const routes: RouteRecordRaw[] = baseRouter;
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,6 +12,13 @@ const router = createRouter({
   },
 });
 
-// router.beforeEach((to, from) => {});
+router.beforeEach((to) => {
+  // 白名单直接跳转
+  if (whiteList.includes(to.path)) {
+    return true;
+  }
+
+  return { path: "/" };
+});
 
 export default router;
