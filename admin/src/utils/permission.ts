@@ -20,7 +20,7 @@ export const checkPermi = (value: string[]): boolean => {
 };
 
 // 角色权限校验
-export const cehckRole = (value: string[]): boolean => {
+export const checkRole = (value: string[]): boolean => {
   if (value && value instanceof Array && value.length > 0) {
     const roles = ["admin", "editor"];
     const permissionRoles = value;
