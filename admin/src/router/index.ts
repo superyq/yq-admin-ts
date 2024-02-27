@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { baseRouter } from "./baseRouter.ts";
 
-const whiteList = ["/", "/login"];
+const whiteList = ["/", "/login", "/demo"];
 const routes: RouteRecordRaw[] = baseRouter;
 
 const router = createRouter({
