@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { parseTime } from "@/utils/index.ts";
-console.log(1, parseTime("2023", "日期: {w}"));
+import { tansParams } from "@/utils/index.ts";
+
+const params = {
+  name: "yqcoder",
+  age: 18,
+};
+console.log(1, tansParams(params));
 </script>
 
 <template>
