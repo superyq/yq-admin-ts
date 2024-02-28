@@ -1,13 +1,5 @@
-// 日期格式化
-export const parseTime = (
-  time: string | number | Date,
-  pattern?: string
-): string | null => {
-  if (!time) {
-    return null;
-  }
-  const format = pattern || "{y}-{m}-{d} {h}:{i}:{s}";
-
+// 时间格式化成 Date
+export const toDate = (time: string | number | Date): Date => {
   // time 转 Date 格式
   let date: Date;
   if (typeof time === "object") {
@@ -26,7 +18,21 @@ export const parseTime = (
     }
     date = new Date(time);
   }
+  return date;
+};
 
+// 日期格式化
+export const parseTime = (
+  time: string | number | Date,
+  pattern?: string
+): string | null => {
+  if (!time) {
+    return null;
+  }
+
+  const format = pattern || "{y}-{m}-{d} {h}:{i}:{s}";
+
+  const date: Date = toDate(time);
   const formatObj: { [key: string]: number } = {
     y: date.getFullYear(),
     m: date.getMonth() + 1,
@@ -51,6 +57,28 @@ export const parseTime = (
     }
   );
   return time_str;
+};
+
+// 距离当前时间多久
+export const dTime = (
+  time: string | number | Date,
+  pattern?: string
+): string | null => {
+  const _time = +toDate(time);
+  const _now = Date.now();
+  const _diff = (_now - _time) / 1000;
+
+  if (_diff < 30) {
+    return "刚刚";
+  } else if (_diff < 3600) {
+    return `${Math.ceil(_diff / 60)}分钟前`;
+  } else if (_diff < 3600 * 24) {
+    return `${Math.ceil(_diff / 3600)}小时前`;
+  } else if (_diff < 3600 * 24 * 2) {
+    return "1天前";
+  }
+
+  return parseTime(time, pattern);
 };
 
 // 添加日期范围
@@ -117,4 +145,63 @@ export const tansParams = (params: { [key: string]: any }): string => {
     }
   }
   return result;
+};
+
+// 深拷贝
+export const deepClone = (obj: any) => {
+  // 判断是否为对象或数组
+  if (typeof obj !== "object" || obj === null) {
+    return obj;
+  }
+
+  // 判断是否为日期类型
+  if (obj instanceof Date) {
+    return new Date(obj);
+  }
+
+  // 判断是否为正则表达式类型
+  if (obj instanceof RegExp) {
+    return new RegExp(obj);
+  }
+
+  // 判断是否为函数类型
+  if (typeof obj === "function") {
+    return new Function("return " + obj.toString())();
+  }
+
+  // 处理对象和数组类型
+  const newObj: any = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    // 判断是否为自身属性
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = deepClone(obj[key]);
+    }
+  }
+
+  return newObj;
+};
+
+// 防抖
+export const debounce = (fn: Function, wait: number = 500): Function => {
+  let timer: any = null;
+  return function () {
+    timer && clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn.apply(this, arguments);
+    }, wait);
+  };
+};
+
+// 节流
+export const throttle = (fn: Function, wait: number = 1000): Function => {
+  let timer: any = null;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments);
+        timer = null;
+      }, wait);
+    }
+  };
 };
