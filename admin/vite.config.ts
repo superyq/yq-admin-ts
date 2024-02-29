@@ -25,10 +25,10 @@ export default defineConfig(({ command }) => {
       strictPort: true,
       open: true,
       proxy: {
-        "/api": {
+        "/dev-api": {
           target: "http://localhost:1112",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path) => path.replace(/^\/dev-api/, ""),
         },
       },
     },

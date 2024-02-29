@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import { throttle } from "@/utils/index.ts";
+import { login } from "@/api/login.ts";
 
-const change = throttle(() => {
-  console.log(1);
-});
+const params = {
+  username: "admin",
+  password: "admin123",
+};
+const handleLogin = () => {
+  login(params)
+    .then((res) => {
+      console.log(1, res);
+    })
+    .catch((err) => {
+      console.log(2, err);
+    });
+};
 </script>
 
 <template>
-  <div class="demo" @click="change()">demo</div>
+  <div class="demo" @click="handleLogin()">demo</div>
 </template>
 
 <style lang="scss" scoped></style>
