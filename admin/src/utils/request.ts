@@ -1,6 +1,14 @@
 import axios from "axios";
 import { getToken } from "@/utils/cookie.ts";
 import { tansParams } from "@/utils/index.ts";
+import errorCode from "@/utils/errorCode.ts";
+import { useDialog, useMessage } from "naive-ui";
+
+const dialog = useDialog();
+const _message = useMessage();
+
+// 是否显示重新登录
+export let isRelogin = { show: false };
 
 // 请求和响应的消息主体用什么方式编码
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";
@@ -10,9 +18,9 @@ const service = axios.create({
 });
 
 // 请求拦截器
-service.interceptors.request.use((config) => {
+service.interceptors.request.use((config: any) => {
   // 是否需要 token，isToken 为 true 时不需要 token
-  const isToken = (config.headers || {}).isToken === true;
+  const isToken = (config.headers || {}).isToken === false;
   if (getToken() && !isToken) {
     // 让请求携带token
     config.headers["Authorization"] = "Bearer " + getToken();
@@ -28,29 +36,61 @@ service.interceptors.request.use((config) => {
 });
 
 // 响应拦截器
-service.interceptors.response.use((res) => {
-  let userStore = useUserStore();
-  // 未设置返回码默认200
-  let code = res.data.code || 200;
-  // 获取错误信息
-  let msg = errorCode[code] || res.data.msg || errorCode["default"];
-  // 二进制数据直接返回
-  if (
-    res.request.responseType === "blob" ||
-    res.request.responseType === "arraybuffer"
-  ) {
-    return res.data;
+service.interceptors.response.use(
+  (res: any) => {
+    // 未设置返回码默认200
+    let code = res.data.code || 200;
+    // 获取错误信息
+    let msg = errorCode[code] || res.data.msg || errorCode["default"];
+    // 二进制数据直接返回
+    if (
+      res.request.responseType === "blob" ||
+      res.request.responseType === "arraybuffer"
+    ) {
+      return res.data;
+    }
+    if (code === 401) {
+      if (!isRelogin.show) {
+        isRelogin.show = true;
+        dialog.warning({
+          title: "系统提示",
+          content: "登录状态已过期，您可以继续留在该页面，或者重新登录",
+          positiveText: "重新登录",
+          negativeText: "取消",
+          onPositiveClick: () => {
+            isRelogin.show = false;
+            store.dispatch("LogOut").then(() => {
+              location.href = "/index";
+            });
+          },
+          onNegativeClick: () => {
+            isRelogin.show = false;
+          },
+        });
+      }
+      return Promise.reject("无效的会话，或者会话已过期，请重新登录。");
+    } else if (code === 500) {
+      return Promise.reject(new Error(msg));
+    } else if (code === 601) {
+      return Promise.reject("error");
+    } else if (code !== 200) {
+      return Promise.reject("error");
+    } else {
+      return res.data;
+    }
+  },
+  (err: any) => {
+    let { message } = err;
+    if (message == "Network Error") {
+      message = "后端接口连接异常";
+    } else if (message.includes("timeout")) {
+      message = "系统接口请求超时";
+    } else if (message.includes("Request failed with status code")) {
+      message = `系统接口${message.substr(message.length - 3)}异常`;
+    }
+    _message.error(message);
+    return Promise.reject(err);
   }
-  if (code === 401) {
-    window.$msg.info("登录状态已过期,请重新登录");
-    userStore.logout().then(() => {
-      window.location.href = "/home";
-    });
-  }
-  if (code !== 200) {
-    window.$msg.error(msg);
-  }
-  return res.data;
-});
+);
 
 export default service;

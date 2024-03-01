@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NDialogProvider, NMessageProvider } from "naive-ui";
 import { login } from "@/api/login.ts";
 
 const params = {
@@ -17,7 +18,11 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <div class="demo" @click="handleLogin()">demo</div>
+  <n-dialog-provider>
+    <n-message-provider>
+      <div class="demo" @click="handleLogin()">demo</div>
+    </n-message-provider>
+  </n-dialog-provider>
 </template>
 
 <style lang="scss" scoped></style>

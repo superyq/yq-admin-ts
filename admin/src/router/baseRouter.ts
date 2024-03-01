@@ -16,7 +16,7 @@ export const baseRouter = [
   },
   {
     path: "/system",
-    component: () => import("@/pages/layout/index.vue"),
+    component: () => import("@/layout/index.vue"),
     children: [
       {
         path: "/demo",

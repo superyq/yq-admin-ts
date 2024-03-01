@@ -12,13 +12,13 @@ const router = createRouter({
   },
 });
 
-router.beforeEach((to) => {
-  // 白名单直接跳转
-  if (whiteList.includes(to.path)) {
-    return true;
-  }
+// router.beforeEach((to) => {
+//   // 白名单直接跳转
+//   if (whiteList.includes(to.path)) {
+//     return true;
+//   }
 
-  return { path: "/" };
-});
+//   return { path: "/" };
+// });
 
 export default router;
