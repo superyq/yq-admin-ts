@@ -27,7 +27,12 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <div class="demo" @click="handleLogin()">demo</div>
+  <div class="p-demo">
+    <div class="demo" @click="handleLogin()">demo</div>
+    <NButton>点饿哦</NButton>
+    <NInput />
+    <NDatePicker></NDatePicker>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>

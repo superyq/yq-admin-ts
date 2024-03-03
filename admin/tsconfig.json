@@ -27,7 +27,8 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": false,
 
-    "types": ["vite/client"]
+    /* 更好的代码补全、类型检查和智能感知功能 */
+    "types": ["vite/client", "naive-ui/volar"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

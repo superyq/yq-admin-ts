@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { NMessageProvider, NDialogProvider } from "naive-ui";
 import NaiveUiApi from "@/components/NaiveUiApi.vue";
+import NaiveTheme from "@/components/NaiveTheme.vue";
 </script>
 
 <template>
-  <NMessageProvider>
-    <NDialogProvider>
-      <NaiveUiApi></NaiveUiApi>
-    </NDialogProvider>
-  </NMessageProvider>
+  <NaiveTheme>
+    <NMessageProvider>
+      <NDialogProvider>
+        <NaiveUiApi></NaiveUiApi>
+      </NDialogProvider>
+    </NMessageProvider>
 
-  <RouterView v-slot="{ Component, route }">
-    <Transition mode="out-in" :name="route.meta.transition || 'fade'">
-      <KeepAlive>
-        <div>
+    <RouterView v-slot="{ Component, route }">
+      <Transition mode="out-in" :name="route.meta.transition || 'fade'">
+        <KeepAlive>
           <component :is="Component" :key="route.path"></component>
-        </div>
-      </KeepAlive>
-    </Transition>
-  </RouterView>
+        </KeepAlive>
+      </Transition>
+    </RouterView>
+  </NaiveTheme>
 </template>
 
 <style scoped></style>

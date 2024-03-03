@@ -16,6 +16,8 @@
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
     "pinia": "^2.1.7",
+    "unplugin-auto-import": "^0.17.5",
+    "unplugin-vue-components": "^0.26.0",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.3.11",
     "vue-img-cutter": "^3.0.4",
