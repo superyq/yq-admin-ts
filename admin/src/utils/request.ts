@@ -2,10 +2,9 @@ import axios from "axios";
 import { getToken } from "@/utils/cookie.ts";
 import { tansParams } from "@/utils/index.ts";
 import errorCode from "@/utils/errorCode.ts";
-import { useDialog, useMessage } from "naive-ui";
+import { useUserStore } from "@/store/user.ts";
 
-const dialog = useDialog();
-const _message = useMessage();
+const userStore = useUserStore();
 
 // 是否显示重新登录
 export let isRelogin = { show: false };
@@ -52,15 +51,15 @@ service.interceptors.response.use(
     if (code === 401) {
       if (!isRelogin.show) {
         isRelogin.show = true;
-        dialog.warning({
+        window.$dialog.warning({
           title: "系统提示",
           content: "登录状态已过期，您可以继续留在该页面，或者重新登录",
           positiveText: "重新登录",
           negativeText: "取消",
           onPositiveClick: () => {
             isRelogin.show = false;
-            store.dispatch("LogOut").then(() => {
-              location.href = "/index";
+            userStore.logout().then(() => {
+              location.href = "/";
             });
           },
           onNegativeClick: () => {
@@ -69,10 +68,6 @@ service.interceptors.response.use(
         });
       }
       return Promise.reject("无效的会话，或者会话已过期，请重新登录。");
-    } else if (code === 500) {
-      return Promise.reject(new Error(msg));
-    } else if (code === 601) {
-      return Promise.reject("error");
     } else if (code !== 200) {
       return Promise.reject("error");
     } else {
@@ -88,7 +83,7 @@ service.interceptors.response.use(
     } else if (message.includes("Request failed with status code")) {
       message = `系统接口${message.substr(message.length - 3)}异常`;
     }
-    _message.error(message);
+    window.$msg.error(message);
     return Promise.reject(err);
   }
 );

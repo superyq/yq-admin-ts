@@ -1,4 +1,8 @@
 import { defineStore } from "pinia";
+import { login, logout } from "@/api/login.ts";
+import { getUserInfo } from "@/api/user.ts";
+import { ILoginPramas } from "@/model/login.ts";
+import { removeToken, setToken } from "@/utils/cookie.ts";
 
 export const useUserStore = defineStore("user", {
   state: () => {
@@ -9,5 +13,57 @@ export const useUserStore = defineStore("user", {
       permissions: [],
     };
   },
-  actions: {},
+  actions: {
+    login(data: ILoginPramas) {
+      return new Promise((resolve, reject) => {
+        login(data)
+          .then((res) => {
+            if (res.code !== 200) {
+              return reject(res);
+            }
+            const token = res.data.token;
+            setToken(token);
+            this.token = token;
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    logout() {
+      return new Promise((resolve, reject) => {
+        logout()
+          .then((res) => {
+            if (res.code !== 200) {
+              reject(res);
+            }
+            removeToken();
+            this.token = "";
+            this.roles = [];
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    getInfo() {
+      return new Promise((resolve, reject) => {
+        getUserInfo()
+          .then((res) => {
+            if (res.code !== 200) {
+              return reject(res);
+            }
+            const { data } = res;
+            this.roles = data.roles;
+            this.user = data;
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+  },
 });
