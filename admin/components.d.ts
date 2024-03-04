@@ -12,6 +12,7 @@ declare module 'vue' {
     NaiveTheme: typeof import('./src/components/naive-ui/NaiveTheme.vue')['default']
     NaiveUiApi: typeof import('./src/components/naive-ui/NaiveUiApi.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
+    NCard: typeof import('naive-ui')['NCard']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDatePicker: typeof import('naive-ui')['NDatePicker']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
@@ -21,6 +22,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
     YButton: typeof import('./src/components/naive-ui/YButton.vue')['default']
+    YCard: typeof import('./src/components/naive-ui/YCard.vue')['default']
     YInput: typeof import('./src/components/naive-ui/YInput.vue')['default']
   }
 }

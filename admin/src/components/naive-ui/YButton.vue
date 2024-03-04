@@ -6,7 +6,7 @@ defineProps({
     type: String,
     default: "",
   },
-  right: {
+  iconRight: {
     type: Boolean,
     default: false,
   },
@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-  <NButton :size="uiSize" :icon-placement="right ? 'right' : 'left'">
+  <NButton :size="uiSize" :icon-placement="iconRight ? 'right' : 'left'">
     <slot></slot>
     <template #icon v-if="icon">
       <svg-icon :name="icon"></svg-icon>

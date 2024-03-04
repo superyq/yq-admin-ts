@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { login } from "@/api/login.ts";
+import YCard from "@/components/naive-ui/YCard.vue";
 import { useThemeStore } from "@/store/theme.ts";
 import { ref } from "vue";
 
@@ -29,19 +30,22 @@ const handleLogin = () => {
     });
 };
 
-let text = ref(undefined)
+let text = ref("123");
 </script>
 
 <template>
   <div class="p-demo">
     <div class="demo" @click="handleLogin()">demo</div>
-    <NButton size="small" type="primary" @click="themeStore.changeTheme">changeTheme</NButton>
+    <NButton size="small" type="primary" @click="themeStore.changeTheme"
+      >changeTheme</NButton
+    >
     <NInput />
     <NDatePicker></NDatePicker>
     <YButton icon="add" type="primary">asdf</YButton>
-    <YInput v-model="text"></YInput>
+    <YInput v-model="text"> </YInput>
     {{ text }}
     <SvgIcon name="user" size="100px"></SvgIcon>
+    <YCard title="asfd" @close="handleLogin"> </YCard>
   </div>
 </template>
 

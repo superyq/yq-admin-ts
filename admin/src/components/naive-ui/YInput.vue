@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { uiSize, uiInputWidth } from "./config.ts";
+import { NInput, NInputNumber } from "naive-ui";
 
 const props = defineProps({
   modelValue: {
@@ -15,29 +16,44 @@ const props = defineProps({
     type: String,
     default: uiInputWidth,
   },
+  isNumber: {
+    type: Boolean,
+    default: false,
+  },
 });
 let emits = defineEmits(["update:modelValue"]);
-const updateValue = (value: any) => {
-  emits("update:modelValue", value);
-};
 
+const value = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emits("update:modelValue", value);
+  },
+});
 const style = computed(() => {
   return {
     width: props.width == "auto" ? "100%" : `${props.width}`,
   };
 });
+const component = computed(() => {
+  return props.isNumber ? NInputNumber : NInput;
+});
 </script>
 
 <template>
-  <NInput
-    :value="modelValue"
-    @input="updateValue"
+  <component
+    :is="component"
+    v-model:value="value"
     :size="uiSize"
     :style="style"
     clearable
   >
     <template #prefix>
-      <svg-icon v-if="icon" :name="icon"></svg-icon>
+      <slot name="prefix"></slot>
     </template>
-  </NInput>
+    <template #suffix>
+      <slot name="suffix"></slot>
+    </template>
+  </component>
 </template>
