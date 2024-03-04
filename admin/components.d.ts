@@ -9,8 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppLink: typeof import('./src/components/AppLink.vue')['default']
     CopyRight: typeof import('./src/components/CopyRight.vue')['default']
-    NaiveTheme: typeof import('./src/components/NaiveTheme.vue')['default']
-    NaiveUiApi: typeof import('./src/components/NaiveUiApi.vue')['default']
+    NaiveTheme: typeof import('./src/components/naive-ui/NaiveTheme.vue')['default']
+    NaiveUiApi: typeof import('./src/components/naive-ui/NaiveUiApi.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDatePicker: typeof import('naive-ui')['NDatePicker']
@@ -19,5 +19,8 @@ declare module 'vue' {
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
+    YButton: typeof import('./src/components/naive-ui/YButton.vue')['default']
+    YInput: typeof import('./src/components/naive-ui/YInput.vue')['default']
   }
 }

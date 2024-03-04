@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { login } from "@/api/login.ts";
+import { useThemeStore } from "@/store/theme.ts";
+import { ref } from "vue";
+
+const themeStore = useThemeStore();
 
 const params = {
   username: "admin",
@@ -24,14 +28,20 @@ const handleLogin = () => {
       console.log(2, err);
     });
 };
+
+let text = ref(undefined)
 </script>
 
 <template>
   <div class="p-demo">
     <div class="demo" @click="handleLogin()">demo</div>
-    <NButton>点饿哦</NButton>
+    <NButton size="small" type="primary" @click="themeStore.changeTheme">changeTheme</NButton>
     <NInput />
     <NDatePicker></NDatePicker>
+    <YButton icon="add" type="primary">asdf</YButton>
+    <YInput v-model="text"></YInput>
+    {{ text }}
+    <SvgIcon name="user" size="100px"></SvgIcon>
   </div>
 </template>
 
