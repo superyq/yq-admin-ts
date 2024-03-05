@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { login } from "@/api/login.ts";
-import YCard from "@/components/naive-ui/YCard.vue";
 import { useThemeStore } from "@/store/theme.ts";
 import { ref } from "vue";
 
@@ -31,6 +30,20 @@ const handleLogin = () => {
 };
 
 let text = ref("123");
+let radio = ref(null);
+let options = ref([
+  {
+    label: "a",
+    value: 1,
+  },
+  {
+    label: "b",
+    value: 2,
+    disabled: true,
+  },
+]);
+let cities = ref([]);
+let date = ref(null);
 </script>
 
 <template>
@@ -46,6 +59,10 @@ let text = ref("123");
     {{ text }}
     <SvgIcon name="user" size="100px"></SvgIcon>
     <YCard title="asfd" @close="handleLogin"> </YCard>
+    <YRadio v-model="radio" :options="options"></YRadio>
+    <YSelect v-model="radio" :options="options"></YSelect>
+    <YCheck v-model="cities" :options="options"></YCheck>
+    <YDate v-model="date"></YDate>
   </div>
 </template>
 

@@ -7,3 +7,9 @@ export const uiInputWidth = "200px";
 // card
 export const uiCardWidth = "600px";
 export const uiCardBordered = true;
+
+// select
+export const uiSelectWidth = "200px";
+
+// date
+export const uiDateWidth = "200px";
