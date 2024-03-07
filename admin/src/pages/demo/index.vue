@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { login } from "@/api/login.ts";
 import { useThemeStore } from "@/store/theme.ts";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
+import { uiPagePages } from "@/components/naive-ui/config.ts";
 
 const themeStore = useThemeStore();
 
@@ -44,6 +45,37 @@ let options = ref([
 ]);
 let cities = ref([]);
 let date = ref(null);
+
+const columns = [
+  {
+    title: "姓名",
+    key: "name",
+  },
+  {
+    title: "年龄",
+    key: "age",
+  },
+];
+const data = [
+  {
+    name: "yq",
+    age: 18,
+  },
+  {
+    name: "yy",
+    age: 20,
+  },
+];
+const pages = reactive(uiPagePages);
+interface IPages {
+  page: number;
+  pageSize: Number;
+  pageSizes: Array<Number>;
+}
+const pageChange = (_pages: IPages) => {
+  console.log(1, _pages);
+  console.log(2, pages);
+};
 </script>
 
 <template>
@@ -63,6 +95,9 @@ let date = ref(null);
     <YSelect v-model="radio" :options="options"></YSelect>
     <YCheck v-model="cities" :options="options"></YCheck>
     <YDate v-model="date"></YDate>
+    <YTable :columns="columns" :data="data"></YTable>
+    <YModal :show="false">123</YModal>
+    <YPage :pages="pages" @pageChange="pageChange" :item-count="200"></YPage>
   </div>
 </template>
 
