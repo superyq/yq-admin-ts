@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { login } from "@/api/login.ts";
 import { useThemeStore } from "@/store/theme.ts";
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import { uiPagePages } from "@/components/naive-ui/config.ts";
+import { IPages } from "@/model/common.ts";
 
 const themeStore = useThemeStore();
 
@@ -66,16 +67,17 @@ const data = [
     age: 20,
   },
 ];
-const pages = reactive(uiPagePages);
-interface IPages {
-  page: number;
-  pageSize: Number;
-  pageSizes: Array<Number>;
-}
-const pageChange = (_pages: IPages) => {
-  console.log(1, _pages);
-  console.log(2, pages);
+const pages = ref(uiPagePages);
+const pageChange = (page: IPages) => {
+  console.log(2, page);
 };
+
+const formValue = ref({
+  name: "",
+  age: null,
+  sex: "",
+  time: null,
+});
 </script>
 
 <template>
@@ -90,14 +92,22 @@ const pageChange = (_pages: IPages) => {
     <YInput v-model="text"> </YInput>
     {{ text }}
     <SvgIcon name="user" size="100px"></SvgIcon>
-    <YCard title="asfd" @close="handleLogin"> </YCard>
+    <YCard title="asfd" @close="handleLogin">
+      <YForm :model="formValue" inline>
+        <NFormItem label="姓名" path="name">
+          <YInput v-model="formValue.name"></YInput>
+        </NFormItem>
+        <NFormItem label="年龄" path="age">
+          <YInput v-model="formValue.age"></YInput>
+        </NFormItem>
+      </YForm>
+    </YCard>
     <YRadio v-model="radio" :options="options"></YRadio>
     <YSelect v-model="radio" :options="options"></YSelect>
     <YCheck v-model="cities" :options="options"></YCheck>
     <YDate v-model="date"></YDate>
     <YTable :columns="columns" :data="data"></YTable>
-    <YModal :show="false">123</YModal>
-    <YPage :pages="pages" @pageChange="pageChange" :item-count="200"></YPage>
+    <YPage :pages="pages" :item-count="200" @pageChange="pageChange"></YPage>
   </div>
 </template>
 

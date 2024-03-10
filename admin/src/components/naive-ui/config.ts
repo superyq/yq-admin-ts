@@ -5,7 +5,7 @@ export const uiSize = "small";
 export const uiInputWidth = "200px";
 
 // card
-export const uiCardWidth = "600px";
+export const uiCardWidth = "680px";
 export const uiCardBordered = true;
 
 // select

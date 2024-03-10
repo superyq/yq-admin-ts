@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { uiSize } from "./config.ts";
+import { PropType } from "vue";
+import { IPages } from "@/model/common.ts";
 
 const props = defineProps({
   pages: {
-    type: Object,
+    type: Object as PropType<IPages>,
     required: true,
   },
 });
