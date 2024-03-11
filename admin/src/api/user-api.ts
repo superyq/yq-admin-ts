@@ -6,3 +6,10 @@ export const getUserInfo = () => {
     method: "get",
   });
 };
+
+export const getRouters = () => {
+  return request({
+    url: "/getRouters",
+    method: "get",
+  });
+};

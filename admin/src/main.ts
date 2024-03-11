@@ -16,8 +16,8 @@ const app = createApp(App);
 
 initC(app);
 app.use(directive);
-app.use(router);
 app.use(pinia);
+app.use(router);
 app.component("svg-icon", SvgIcon);
 
 app.mount("#app");

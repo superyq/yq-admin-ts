@@ -7,7 +7,6 @@ import { useUserStore } from "@/store/user.ts";
 
 const whiteList = ["/login", "/demo"];
 const routes: RouteRecordRaw[] = baseRouter;
-const userStore = useUserStore();
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,6 +17,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
+  const userStore = useUserStore();
   NProgress.start();
   if (getToken()) {
     if (to.path === "/login") {
@@ -32,7 +32,13 @@ router.beforeEach((to) => {
     if (userStore.roles.length === 0) {
       userStore
         .getInfo()
-        .then(() => {})
+        .then(() => {
+          // userStore.getRouter().then((accessRoutes) => {
+          //   router.addRoutes(accessRoutes);
+          //   return {};
+          // });
+          return true;
+        })
         .catch((err) => {
           userStore.logout().then(() => {
             window.$msg.error(err);
