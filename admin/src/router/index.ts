@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { baseRouter } from "./baseRouter.ts";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { getToken } from "@/utils/cookie.js";
+import { useUserStore } from "@/store/user.ts";
 
-const whiteList = ["/", "/login", "/demo"];
+const whiteList = ["/login", "/demo"];
 const routes: RouteRecordRaw[] = baseRouter;
+const userStore = useUserStore();
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,12 +18,39 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  // 白名单直接跳转
-  if (whiteList.includes(to.path)) {
-    return true;
-  }
+  NProgress.start();
+  if (getToken()) {
+    if (to.path === "/login") {
+      return { path: "/" };
+    }
 
-  return { path: "/" };
+    // 白名单直接跳转
+    if (whiteList.includes(to.path)) {
+      return true;
+    }
+
+    if (userStore.roles.length === 0) {
+      userStore
+        .getInfo()
+        .then(() => {})
+        .catch((err) => {
+          userStore.logout().then(() => {
+            window.$msg.error(err);
+            return { path: "/" };
+          });
+        });
+    }
+  } else {
+    // 白名单直接跳转
+    if (whiteList.includes(to.path)) {
+      return true;
+    }
+    return { path: `/login?redirect=${encodeURIComponent(to.path)}` };
+  }
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export default router;

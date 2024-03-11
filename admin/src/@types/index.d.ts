@@ -2,4 +2,5 @@
 declare module "js-cookie";
 declare module "jsencrypt/bin/jsencrypt.min";
 declare module "axios";
-declare module "path-browserify"
+declare module "path-browserify";
+declare module "nprogress";

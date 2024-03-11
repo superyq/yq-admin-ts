@@ -10,42 +10,42 @@ const userStore = useUserStore();
 const router = useRouter();
 
 // 登录
-let formRef = ref(null);
+let loginFormRef = ref();
 let rememberMe = ref(false);
 let loginBtnState = ref(false);
 const form = reactive({
-  userName: "yqcoder",
-  password: "888888",
+  username: "",
+  password: "",
   code: "",
   uuid: "",
 });
 const rules = {
-  userName: {
+  username: {
     required: true,
-    trigger: ["input", "blur"],
+    trigger: ["blur"],
     message: "请输入用户名",
   },
   password: {
     required: true,
-    trigger: ["input", "blur"],
+    trigger: ["blur"],
     message: "请输入密码",
   },
   code: {
     required: true,
-    trigger: ["input", "blur"],
+    trigger: ["blur"],
     message: "请输入验证码",
   },
 };
 const handleLogin = () => {
   loginBtnState.value = true;
-  formRef.value?.validate((errors) => {
-    if (!errors) {
+  loginFormRef.value?.validate((err: boolean) => {
+    if (!err) {
       if (rememberMe.value) {
-        setCookie("userName", form.userName);
+        setCookie("username", form.username);
         setCookie("password", encrypt(form.password));
         setCookie("rememberMe", rememberMe.value);
       } else {
-        removeCookie("userName");
+        removeCookie("username");
         removeCookie("password");
         removeCookie("rememberMe");
       }
@@ -68,8 +68,8 @@ const handleLogin = () => {
 
 // 获取默认登录账号
 const getDefault = () => {
-  form.userName = getCookie("userName") || "";
-  form.password = decrypt(getCookie("password")) || "";
+  form.username = getCookie("username") || "admin";
+  form.password = decrypt(getCookie("password")) || "admin123";
   rememberMe.value = Boolean(getCookie("rememberMe")) || false;
 };
 getDefault();
@@ -81,142 +81,73 @@ let codeUrl = ref("");
 const getCode = () => {
   getCodeImg().then((res) => {
     needCode.value =
-      res.captchaEnabled === undefined ? true : res.captchaEnabled;
+      res.data.captchaEnabled === undefined ? true : res.data.captchaEnabled;
     if (needCode.value) {
-      codeUrl.value = "data:image/gif;base64," + res.img;
-      form.uuid = res.uuid;
+      codeUrl.value = "data:image/gif;base64," + res.data.img;
+      form.uuid = res.data.uuid;
     }
   });
 };
 </script>
 
 <template>
-  <div class="login__box">
-    <div class="login-logo__box">
-      <div class="login__title login-logo">登 录</div>
-    </div>
-    <n-form
-      ref="formRef"
-      class="login-form__box"
-      :model="form"
-      :rules="rules"
-      label-placement="left"
-    >
-      <n-form-item path="userName">
-        <n-input
-          class="login-input"
-          v-model:value="form.userName"
-          placeholder="请输入用户名/手机号"
-        >
-          <template #prefix>
-            <svg-icon name="username" color="grey"></svg-icon>
-          </template>
-        </n-input>
-      </n-form-item>
-      <n-form-item path="password">
-        <n-input
-          class="login-input"
-          v-model:value="form.password"
-          placeholder="请输入密码"
-          type="password"
-          show-password-on="mousedown"
-          @keyup.enter="handleLogin"
-        >
-          <template #prefix>
-            <svg-icon name="password" color="grey"></svg-icon>
-          </template>
-        </n-input>
-      </n-form-item>
-      <n-form-item v-if="needCode" class="login-code" path="code">
-        <n-input
-          v-model:value="form.code"
-          class="login-input login-input_code"
-          placeholder="验证码"
-          @keyup.enter="handleLogin"
-        >
-          <template #prefix>
-            <svg-icon name="code" color="grey"></svg-icon>
-          </template>
-        </n-input>
-        <img class="login-code-img" :src="codeUrl" @click="getCode" />
-      </n-form-item>
-      <div class="login-checkbox_box">
-        <n-checkbox
-          class="login-checkbox"
-          v-model:checked="rememberMe"
-        ></n-checkbox>
-        <span>记住密码</span>
-      </div>
-      <n-button
-        class="login-btn_login"
-        type="info"
-        @click="handleLogin"
-        :loading="loginBtnState"
-        :disabled="loginBtnState"
-        >登录</n-button
+  <NForm ref="loginFormRef" :model="form" :rules="rules" label-placement="left">
+    <NFormItem path="username">
+      <YInput
+        class="u__mt-20"
+        v-model="form.username"
+        width="auto"
+        placeholder="请输入用户名/手机号"
       >
-    </n-form>
-  </div>
+        <template #prefix>
+          <svg-icon name="username" color="grey"></svg-icon>
+        </template>
+      </YInput>
+    </NFormItem>
+    <NFormItem path="password">
+      <YInput
+        class="u__mt-20"
+        v-model="form.password"
+        width="auto"
+        placeholder="请输入密码"
+        type="password"
+        show-password-on="mousedown"
+        @keyup.enter="handleLogin"
+      >
+        <template #prefix>
+          <svg-icon name="password" color="grey"></svg-icon>
+        </template>
+      </YInput>
+    </NFormItem>
+    <NFormItem v-if="needCode" class="login-code" path="code">
+      <YInput
+        v-model:value="form.code"
+        class="u__mt-20 login-input_code"
+        placeholder="验证码"
+        @keyup.enter="handleLogin"
+      >
+        <template #prefix>
+          <svg-icon name="code" color="grey"></svg-icon>
+        </template>
+      </YInput>
+      <img class="login-code-img" :src="codeUrl" @click="getCode" />
+    </NFormItem>
+    <div class="login-checkbox_box">
+      <YCheck class="u__mr-5" v-model="rememberMe"></YCheck>
+      <span>记住密码</span>
+    </div>
+    <YButton
+      class="login-btn_login"
+      type="info"
+      @click="handleLogin"
+      :loading="loginBtnState"
+      :disabled="loginBtnState"
+      >登录</YButton
+    >
+  </NForm>
 </template>
 
 <style lang="scss" scope>
-.login__box {
-  width: 425px;
-  padding: 20px 40px;
-  border-radius: 10px;
-  background: rgba(2, 57, 104, 0.7);
-  box-shadow: 0 0 30px rgba(2, 57, 104, 0.7);
-  box-sizing: border-box;
-  .login__title {
-    font-size: 24px;
-    text-align: center;
-    color: #fff;
-  }
-}
-.login-title {
-  margin-bottom: 15px;
-  text-align: center;
-  letter-spacing: 10px;
-  font-size: 18px;
-  color: #fff;
-  opacity: 1;
-}
-
-.login-logo__box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-
-  text {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-      sans-serif;
-    color: #1d69a3;
-
-    &::before {
-      content: "";
-      display: inline-block;
-      margin: 0 5px;
-      width: 5px;
-      height: 5px;
-      background: gray;
-      border-radius: 50%;
-    }
-  }
-}
-
-.login-logo {
-  width: 55%;
-
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
-}
-
 .login-code {
   .login-input_code {
     width: 240px;
@@ -229,12 +160,8 @@ const getCode = () => {
 }
 
 .login-btn_login {
-  height: 40px;
+  height: 30px;
   width: 100%;
-}
-
-.login-input {
-  margin-top: 20px;
 }
 
 .login-checkbox_box {

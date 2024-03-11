@@ -1,7 +1,7 @@
 export const baseRouter = [
   {
     path: "/demo",
-    component: () => import("@/pages/demo/index.vue"), 
+    component: () => import("@/pages/demo/index.vue"),
   },
   // 所有未知页面都是404
   {
@@ -9,7 +9,6 @@ export const baseRouter = [
     component: () => import("@/pages/404/index.vue"),
   },
   {
-    alias: "/",
     path: "/login",
     name: "login",
     component: () => import("@/pages/login/index.vue"),
@@ -22,6 +21,12 @@ export const baseRouter = [
         path: "/demo",
         name: "demo",
         component: () => import("@/pages/demo/index.vue"),
+      },
+      {
+        alias: "/",
+        path: "/home",
+        name: "home",
+        component: () => import("@/pages/home/index.vue"),
       },
       {
         path: "/editpassword",
