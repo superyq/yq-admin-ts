@@ -4,6 +4,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { getToken } from "@/utils/cookie.js";
 import { useUserStore } from "@/store/user.ts";
+import { usePermissionStore } from "@/store/permission.ts";
 
 const whiteList = ["/login", "/demo"];
 const routes: RouteRecordRaw[] = baseRouter;
@@ -18,25 +19,24 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const userStore = useUserStore();
+  const permissionStore = usePermissionStore();
   NProgress.start();
   if (getToken()) {
     if (to.path === "/login") {
       return { path: "/" };
     }
-
-    // 白名单直接跳转
     if (whiteList.includes(to.path)) {
       return true;
     }
 
+    // 获取路由和导航
     if (userStore.roles.length === 0) {
       userStore
         .getInfo()
         .then(() => {
-          // userStore.getRouter().then((accessRoutes) => {
-          //   router.addRoutes(accessRoutes);
-          //   return {};
-          // });
+          permissionStore.getRouters().then((accessRoutes) => {
+            console.log(accessRoutes);
+          });
           return true;
         })
         .catch((err) => {

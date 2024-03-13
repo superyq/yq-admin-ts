@@ -1,8 +1,4 @@
 export const baseRouter = [
-  {
-    path: "/demo",
-    component: () => import("@/pages/demo/index.vue"),
-  },
   // 所有未知页面都是404
   {
     path: "/:catchAll(.*)",

@@ -17,7 +17,6 @@ export const useThemeStore = defineStore("theme", {
   },
   actions: {
     changeTheme() {
-      console.log(1);
       this.theme = this.isDarkTheme ? null : darkTheme;
     },
   },

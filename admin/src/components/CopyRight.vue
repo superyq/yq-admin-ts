@@ -1,19 +1,19 @@
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   color: {
     type: String,
-    defulat: "",
+    default: "",
   },
   text: {
     type: String,
-    defualt: "版权所有 © YLD科技有限公司，保留所有权利，川F3-20233308号",
+    default: "版权所有 © YLD科技有限公司，保留所有权利，川F3-20233308号",
   },
 });
 </script>
 
 <template>
-  <p :style="{ color: props.color }">
-    {{ props.text }}
+  <p :style="{ color }">
+    {{ text }}
   </p>
 </template>
 
