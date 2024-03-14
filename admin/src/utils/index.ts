@@ -1,3 +1,5 @@
+import { IOptions } from "@/model/common.ts";
+
 // 时间格式化成 Date
 export const toDate = (time: string | number | Date): Date => {
   // time 转 Date 格式
@@ -104,7 +106,7 @@ export const addDateRange = (
 
 // 构造树形结构
 export const toTreeData = (
-  arr: { [key: string]: any }[],
+  arr: IOptions[],
   rootValue: string | number
 ): { [key: string]: any }[] => {
   const _arr: any[] = [];

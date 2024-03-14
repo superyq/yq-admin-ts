@@ -44,7 +44,7 @@ const handleUpdateMenu = (value, item) => {
 <template>
   <!-- logo -->
   <div
-    class="layout-sider__logo c-center"
+    class="layout-sider__logo u__flex-c"
     :class="{ isHide: !isOpen }"
     @click="$router.push('/home')"
   >
@@ -55,7 +55,7 @@ const handleUpdateMenu = (value, item) => {
   <!-- menu组件 -->
   <NMenu
     :inverted="inverted"
-    :indent="40"
+    :indent="30"
     :root-indent="15"
     :options="menuOptions"
     :value="activeMenuValue"

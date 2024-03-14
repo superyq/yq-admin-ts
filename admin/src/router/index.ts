@@ -34,9 +34,7 @@ router.beforeEach((to) => {
       userStore
         .getInfo()
         .then(() => {
-          permissionStore.getRouters().then((accessRoutes) => {
-            console.log(accessRoutes);
-          });
+          permissionStore.getRouters().then((accessRoutes) => {});
           return true;
         })
         .catch((err) => {

@@ -1,5 +1,5 @@
 export interface IOptions {
-  [value: string]: any;
+  [key: string]: any;
 }
 
 export interface IPages {
@@ -14,9 +14,18 @@ export interface ITag {
 }
 
 export interface IRouter {
-  name: string;
+  parentId: number;
+  menuId: number;
+  menuName: string;
   path: string;
-  meta: [string | object];
   component: string;
+  status: number;
   children?: IRouter[];
+}
+
+export interface IMenu {
+  label: any;
+  key: [number | string];
+  icon: string;
+  children?: IMenu[];
 }
