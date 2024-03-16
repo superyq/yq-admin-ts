@@ -34,8 +34,18 @@ router.beforeEach((to) => {
       userStore
         .getInfo()
         .then(() => {
-          permissionStore.getRouters().then((accessRoutes) => {});
-          return true;
+          permissionStore.getRouters().then((accessRoutes) => {
+            router.addRoute(accessRoutes as RouteRecordRaw);
+
+            console.log("ro", to);
+            if (to.path == "/404" && to.redirectedFrom != undefined) {
+              console.log(1);
+              return { path: to.redirectedFrom?.fullPath, replace: true };
+            } else {
+              return { ...to, replace: true };
+            }
+            // return { path: to.path, replace: true };
+          });
         })
         .catch((err) => {
           userStore.logout().then(() => {
@@ -43,6 +53,8 @@ router.beforeEach((to) => {
             return { path: "/" };
           });
         });
+    } else {
+      return true;
     }
   } else {
     // 白名单直接跳转

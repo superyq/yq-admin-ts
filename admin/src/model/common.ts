@@ -13,19 +13,17 @@ export interface ITag {
   key: string;
 }
 
-export interface IRouter {
-  parentId: number;
-  menuId: number;
+export interface IMenu {
   menuName: string;
-  path: string;
+  icon: string;
+  sort: number;
+  perms: string;
   component: string;
   status: number;
-  children?: IRouter[];
-}
-
-export interface IMenu {
-  label: any;
-  key: [number | string];
-  icon: string;
+  createTime: string;
+  menuType: string;
+  menuId: number;
+  parentId: number;
+  path: string;
   children?: IMenu[];
 }

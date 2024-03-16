@@ -2,12 +2,12 @@ import { defineStore } from "pinia";
 import { login, logout } from "@/api/login.ts";
 import { getUserInfo } from "@/api/user.ts";
 import { ILoginPramas } from "@/model/login.ts";
-import { removeToken, setToken } from "@/utils/cookie.ts";
+import { removeToken, setToken, getToken } from "@/utils/cookie.ts";
 
 export const useUserStore = defineStore("user", {
   state: () => {
     return {
-      token: null,
+      token: getToken() || null,
       user: null,
       roles: [],
       permissions: [],

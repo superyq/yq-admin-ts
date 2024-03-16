@@ -1,5 +1,9 @@
 import { IOptions } from "@/model/common.ts";
 
+export function isExternal(path: string) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
+
 // 时间格式化成 Date
 export const toDate = (time: string | number | Date): Date => {
   // time 转 Date 格式

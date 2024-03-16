@@ -3,13 +3,13 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const go = () => {
-  router.push("/menu");
+  router.push("/home");
 };
 </script>
 
 <template>
   <div class="p-home">
-    <YButton @click="go">go</YButton>
+    <YButton @click="go">goHome</YButton>
   </div>
 </template>
 

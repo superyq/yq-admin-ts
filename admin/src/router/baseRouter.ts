@@ -1,9 +1,4 @@
 export const baseRouter = [
-  // 所有未知页面都是404
-  {
-    path: "/:catchAll(.*)",
-    component: () => import("@/pages/404/index.vue"),
-  },
   {
     path: "/login",
     name: "login",
@@ -38,6 +33,11 @@ export const baseRouter = [
         path: "/dict/:id",
         name: "dict",
         component: () => import("@/pages/dict/index.vue"),
+      },
+      // 所有未知页面都是404
+      {
+        path: "/:catchAll(.*)",
+        component: () => import("@/pages/404/index.vue"),
       },
     ],
   },
