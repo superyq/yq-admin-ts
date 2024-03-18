@@ -54,7 +54,7 @@ const handleUpdateMenu = (value, item) => {
   <!-- menu组件 -->
   <NMenu
     :inverted="inverted"
-    :indent="30"
+    :indent="10"
     :root-indent="15"
     :options="menuOptions"
     :value="activeMenuValue"

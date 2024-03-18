@@ -80,7 +80,7 @@ export const getAayncRouter = (routers: IMenu[]): RouteRecordRaw => {
 };
 
 // 生成 naive-ui 侧边栏导航
-export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
+export const getSiderMenu = (routers: IMenu[], parents = ""): MenuOption[] => {
   let arr: any[] = [];
   routers.forEach((item) => {
     if (item.status && item.menuType != "F") {
@@ -98,9 +98,11 @@ export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
         label,
         key,
         icon,
-        name: item.menuName
+        name: item.menuName,
+        parents
       };
       !icon && delete baseItem.icon;
+      !parents && delete baseItem.parents;
 
       if (
         item.children &&
@@ -109,7 +111,8 @@ export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
         arr.push({
           ...baseItem,
           children: getSiderMenu(
-            item.children.filter((c: IMenu) => c.menuType !== "F")
+            item.children.filter((c: IMenu) => c.menuType !== "F"),
+            `${parents}/${item.menuName}`
           ),
         });
       } else {
