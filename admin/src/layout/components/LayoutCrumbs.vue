@@ -12,12 +12,12 @@ let getCrumList = (nowRoute) => {
   return arr;
 };
 
-let crumbList = ref([]);
+let crumbList = ref(["asdf", "asd"]);
 // 监听路由，获取crumlist
 watch(
   () => route,
   (newRoute) => {
-    crumbList.value = getCrumList(newRoute);
+    // crumbList.value = getCrumList(newRoute);
   },
   { immediate: true, deep: true }
 );

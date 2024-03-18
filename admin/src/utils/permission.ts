@@ -56,8 +56,11 @@ export const getRouterItem = (item: IMenu) => {
   const { path, component } = item;
   return {
     path,
-    name: path.split('/')[1],
+    name: path.split("/")[1],
     component: modules[`../pages/${component}`],
+    meta: {
+      title: item.menuName
+    }
   };
 };
 
@@ -80,7 +83,7 @@ export const getAayncRouter = (routers: IMenu[]): RouteRecordRaw => {
 };
 
 // 生成 naive-ui 侧边栏导航
-export const getSiderMenu = (routers: IMenu[], parents = ""): MenuOption[] => {
+export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
   let arr: any[] = [];
   routers.forEach((item) => {
     if (item.status && item.menuType != "F") {
@@ -99,10 +102,8 @@ export const getSiderMenu = (routers: IMenu[], parents = ""): MenuOption[] => {
         key,
         icon,
         name: item.menuName,
-        parents
       };
       !icon && delete baseItem.icon;
-      !parents && delete baseItem.parents;
 
       if (
         item.children &&
@@ -111,8 +112,7 @@ export const getSiderMenu = (routers: IMenu[], parents = ""): MenuOption[] => {
         arr.push({
           ...baseItem,
           children: getSiderMenu(
-            item.children.filter((c: IMenu) => c.menuType !== "F"),
-            `${parents}/${item.menuName}`
+            item.children.filter((c: IMenu) => c.menuType !== "F")
           ),
         });
       } else {

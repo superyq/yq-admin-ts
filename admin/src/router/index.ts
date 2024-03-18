@@ -5,7 +5,6 @@ import "nprogress/nprogress.css";
 import { getToken } from "@/utils/cookie.js";
 import { useUserStore } from "@/store/user.ts";
 import { usePermissionStore } from "@/store/permission.ts";
-import { RootObject } from "@/model/rootObject.ts";
 
 const whiteList = ["/login", "/demo"];
 const routes: RouteRecordRaw[] = baseRouter;
@@ -22,6 +21,7 @@ router.beforeEach(async (to) => {
   const userStore = useUserStore();
   const permissionStore = usePermissionStore();
   NProgress.start();
+  console.log('to', to)
   if (getToken()) {
     if (to.path === "/login") {
       return { path: "/" };
