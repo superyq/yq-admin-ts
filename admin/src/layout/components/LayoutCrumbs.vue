@@ -1,37 +1,44 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { NBreadcrumb, NBreadcrumbItem } from "naive-ui";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
-let route = useRoute();
+interface DropItem {
+  label: string;
+  key: string;
+  children?: DropItem[];
+}
 
-// 判断是二级目录
-let getCrumList = (nowRoute) => {
-  let arr = [nowRoute.meta.title];
-  !!nowRoute.meta.parentTitle && arr.unshift(nowRoute.meta.parentTitle);
-  return arr;
+const route = useRoute();
+const router = useRouter();
+
+const breadcrumbs = reactive([] as Array<DropItem>);
+
+const handleSelect = (key: string) => {
+  router.push(key);
 };
-
-let crumbList = ref(["asdf", "asd"]);
-// 监听路由，获取crumlist
-watch(
-  () => route,
-  (newRoute) => {
-    // crumbList.value = getCrumList(newRoute);
-  },
-  { immediate: true, deep: true }
-);
 </script>
 
 <template>
-  <n-breadcrumb>
-    <n-breadcrumb-item
+  <NBreadcrumb>
+    <NBreadcrumbItem
       class="layout-crumbs-item"
-      v-for="(item, index) in crumbList"
-      :key="index"
-      >{{ item }}</n-breadcrumb-item
+      v-for="item in breadcrumbs"
+      :key="index.key"
     >
-  </n-breadcrumb>
+      <NDropdown
+        v-if="item.children && item.children.length > 0"
+        :options="item.children"
+        @select="handleSelect"
+      >
+        <span>
+          {{ item.label }}
+          <SvgIcon name="down"></SvgIcon>
+        </span>
+      </NDropdown>
+      <span v-else>{{ item.label }}</span>
+    </NBreadcrumbItem>
+  </NBreadcrumb>
 </template>
 
 <style lang="scss" scoped>
