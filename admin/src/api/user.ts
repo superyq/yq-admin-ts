@@ -3,9 +3,17 @@ import { tableData } from "@/mock/menu.ts";
 import { userInfo } from "@/mock/user.ts";
 
 export const getUserInfo = () => {
-  return Promise.resolve(result(userInfo));
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(result(userInfo));
+    }, 300);
+  })
 };
 
 export const getRouters = () => {
-  return Promise.resolve(result(tableData));
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(result(tableData));
+    }, 300);
+  })
 };

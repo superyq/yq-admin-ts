@@ -51,7 +51,7 @@ export const useUserStore = defineStore("user", {
     getInfo() {
       return new Promise((resolve, reject) => {
         getUserInfo()
-          .then((res) => {
+          .then((res: any) => {
             if (res.code !== 200) {
               return reject(res);
             }

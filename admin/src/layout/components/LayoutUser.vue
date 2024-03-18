@@ -20,8 +20,8 @@ let avatar = computed(() => {
   }
 });
 let username = computed(() => {
-  if (!!userStore.user?.userName) {
-    return userStore.user.userName;
+  if (!!userStore.user?.username) {
+    return userStore.user.username;
   } else {
     return "";
   }

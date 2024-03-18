@@ -11,13 +11,7 @@ import { NThemeEditor } from "naive-ui";
         </NDialogProvider>
       </NMessageProvider>
 
-      <RouterView v-slot="{ Component, route }">
-        <Transition mode="out-in" :name="route.meta.transition || 'fade'">
-          <KeepAlive>
-            <component :is="Component" :key="route.path"></component>
-          </KeepAlive>
-        </Transition>
-      </RouterView>
+      <RouterView></RouterView>
     </NaiveTheme>
   </NThemeEditor>
 </template>

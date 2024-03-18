@@ -18,13 +18,12 @@ const menuOptions = computed(() => {
   return permissionStore.siderMenu;
 });
 
-let activeMenuValue = ref("/menu");
+let activeMenuValue = ref(1067);
 watch(
   () => route.path,
   () => {
-    activeMenuValue.value = route.path;
-    permissionStore.activeMenuValue = route.path;
-    console.log(route.path);
+    // activeMenuValue.value = route.path;
+    // permissionStore.activeMenuValue = route.path;
   },
   { immediate: true, deep: true }
 );
@@ -35,6 +34,7 @@ tagStore.addTag(obj);
 
 const handleUpdateMenu = (value, item) => {
   // 新增 tag
+  console.log(value, item);
   tagStore.addTag(item);
   activeMenuValue.value = value;
 };

@@ -5,6 +5,7 @@ import "nprogress/nprogress.css";
 import { getToken } from "@/utils/cookie.js";
 import { useUserStore } from "@/store/user.ts";
 import { usePermissionStore } from "@/store/permission.ts";
+import { RootObject } from "@/model/rootObject.ts";
 
 const whiteList = ["/login", "/demo"];
 const routes: RouteRecordRaw[] = baseRouter;
@@ -17,7 +18,7 @@ const router = createRouter({
   },
 });
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   const userStore = useUserStore();
   const permissionStore = usePermissionStore();
   NProgress.start();
@@ -31,28 +32,17 @@ router.beforeEach((to) => {
 
     // 获取路由和导航
     if (userStore.roles.length === 0) {
-      userStore
-        .getInfo()
-        .then(() => {
-          permissionStore.getRouters().then((accessRoutes) => {
-            router.addRoute(accessRoutes as RouteRecordRaw);
-
-            console.log("ro", to);
-            if (to.path == "/404" && to.redirectedFrom != undefined) {
-              console.log(1);
-              return { path: to.redirectedFrom?.fullPath, replace: true };
-            } else {
-              return { ...to, replace: true };
-            }
-            // return { path: to.path, replace: true };
-          });
-        })
-        .catch((err) => {
-          userStore.logout().then(() => {
-            window.$msg.error(err);
-            return { path: "/" };
-          });
+      try {
+        await userStore.getInfo();
+        const accessRoutes = await permissionStore.getRouters();
+        router.addRoute(accessRoutes as RouteRecordRaw);
+        return { path: to.path, replace: true };
+      } catch {
+        userStore.logout().then((res: any) => {
+          window.$msg.error(res.data);
+          return { path: "/login", replace: true };
         });
+      }
     } else {
       return true;
     }
@@ -61,7 +51,10 @@ router.beforeEach((to) => {
     if (whiteList.includes(to.path)) {
       return true;
     }
-    return { path: `/login?redirect=${encodeURIComponent(to.path)}` };
+    return {
+      path: `/login?redirect=${encodeURIComponent(to.path)}`,
+      replace: true,
+    };
   }
 });
 

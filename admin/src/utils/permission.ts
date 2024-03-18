@@ -56,6 +56,7 @@ export const getRouterItem = (item: IMenu) => {
   const { path, component } = item;
   return {
     path,
+    name: path.split('/')[1],
     component: modules[`../pages/${component}`],
   };
 };
@@ -83,8 +84,8 @@ export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
   let arr: any[] = [];
   routers.forEach((item) => {
     if (item.status && item.menuType != "F") {
-      let label: any = item.menuName;
-      let key: any = item.path;
+      let label: any;
+      let key: any = item.menuId;
       let icon: any = "";
 
       label =
@@ -97,6 +98,7 @@ export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
         label,
         key,
         icon,
+        name: item.menuName
       };
       !icon && delete baseItem.icon;
 

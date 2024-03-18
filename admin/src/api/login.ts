@@ -6,7 +6,7 @@ export const login = (params: ILoginPramas) => {
 };
 
 export const logout = () => {
-  return Promise.resolve(result("成功"));
+  return Promise.resolve(result("退出登录"));
 };
 
 export const getCodeImg = () => {

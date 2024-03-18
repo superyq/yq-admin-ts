@@ -29,14 +29,10 @@ export const baseRouter = [
         name: "userinfo",
         component: () => import("@/pages/userinfo/index.vue"),
       },
-      {
-        path: "/dict/:id",
-        name: "dict",
-        component: () => import("@/pages/dict/index.vue"),
-      },
       // 所有未知页面都是404
       {
-        path: "/:catchAll(.*)",
+        path: "/:pathMatch(.*)*",
+        name: 'NotFound',
         component: () => import("@/pages/404/index.vue"),
       },
     ],

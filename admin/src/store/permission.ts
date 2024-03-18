@@ -16,12 +16,13 @@ export const usePermissionStore = defineStore({
     getRouters() {
       return new Promise((resolve, reject) => {
         getRouters()
-          .then(({ data }) => {
+          .then(({ data }: any) => {
             const sData = deepClone(data);
             const rData = deepClone(data);
 
             const treeData = toTreeData(sData, 0);
             this.siderMenu = getSiderMenu(treeData as IMenu[]);
+            console.log(this.siderMenu)
 
             const routerData = getAayncRouter(rData);
             resolve(routerData);

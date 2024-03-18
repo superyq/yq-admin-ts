@@ -2,11 +2,11 @@
 
 <template>
   <div class="layout-content">
-    <router-view v-slot="{ Component, route }">
-      <transition name="mainFade" mode="out-in">
+    <RouterView v-slot="{ Component, route }">
+      <Transition mode="out-in" :name="route.meta.transition || 'mainFade'">
         <component :is="Component" :key="route.path"></component>
-      </transition>
-    </router-view>
+      </Transition>
+    </RouterView>
   </div>
 </template>
 

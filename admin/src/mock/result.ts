@@ -5,3 +5,11 @@ export const result = (data: any) => {
     data: data,
   };
 };
+
+export const resultFail = () => {
+  return {
+    code: 500,
+    msg: '报错',
+    data: {}
+  }
+}

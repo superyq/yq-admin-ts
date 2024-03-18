@@ -82,7 +82,7 @@ export const tableData = [
     sort: 1,
     perms: "",
     component: "user/index.vue",
-    status: 0,
+    status: 1,
     createTime: "2022-11-16 15:20:06",
     menuType: "C",
     menuId: 1064,
