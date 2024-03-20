@@ -3,6 +3,7 @@ import { getRouters } from "@/api/user.ts";
 import { getSiderMenu, getAayncRouter } from "@/utils/permission.ts";
 import { toTreeData, deepClone } from "@/utils/index.ts";
 import { IMenu } from "@/model/common.ts";
+import { RouteRecordRaw } from "vue-router";
 
 export const usePermissionStore = defineStore({
   id: "permissionStore",
@@ -17,13 +18,14 @@ export const usePermissionStore = defineStore({
       return new Promise((resolve, reject) => {
         getRouters()
           .then(({ data }: any) => {
-            const sData = deepClone(data);
-            const rData = deepClone(data);
+            this.siderMenu = getSiderMenu(
+              toTreeData(deepClone(data), 0) as IMenu[]
+            );
 
-            const treeData = toTreeData(sData, 0);
-            this.siderMenu = getSiderMenu(treeData as IMenu[]);
-
-            const routerData = getAayncRouter(rData);
+            const routerData: RouteRecordRaw[] = getAayncRouter(
+              toTreeData(deepClone(data), 0) as IMenu[]
+            );
+            console.log(1, routerData);
             resolve(routerData);
           })
           .catch((err) => {

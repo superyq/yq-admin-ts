@@ -10,7 +10,7 @@ export const tableData = [
     menuType: "M",
     menuId: 1,
     parentId: 0,
-    path: "",
+    path: "/system",
   },
   {
     menuName: "系统菜单",
@@ -23,7 +23,7 @@ export const tableData = [
     menuType: "C",
     menuId: 102,
     parentId: 1,
-    path: "/menu",
+    path: "/system/menu",
   },
   {
     menuName: "菜单删除",
@@ -49,7 +49,7 @@ export const tableData = [
     menuType: "M",
     menuId: 1093,
     parentId: 1,
-    path: "/dict",
+    path: "/system/dict",
   },
   {
     menuName: "字典详情",
@@ -62,7 +62,7 @@ export const tableData = [
     menuType: "C",
     menuId: 1011,
     parentId: 1093,
-    path: "/dict",
+    path: "/system/dict/dictdetail",
   },
   {
     menuName: "用户管理",
@@ -75,7 +75,7 @@ export const tableData = [
     menuType: "M",
     menuId: 1063,
     parentId: 0,
-    path: "",
+    path: "/user",
   },
   {
     menuName: "角色管理",
@@ -88,7 +88,7 @@ export const tableData = [
     menuType: "C",
     menuId: 1067,
     parentId: 1063,
-    path: "/role",
+    path: "/user/role",
   },
   {
     menuName: "用户管理",
@@ -100,7 +100,7 @@ export const tableData = [
     menuType: "C",
     menuId: 1064,
     parentId: 1063,
-    path: "/user",
+    path: "/user/user",
   },
 ];
 

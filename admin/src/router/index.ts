@@ -33,8 +33,12 @@ router.beforeEach(async (to) => {
     if (userStore.roles.length === 0) {
       try {
         await userStore.getInfo();
-        const accessRoutes = await permissionStore.getRouters();
-        router.addRoute(accessRoutes as RouteRecordRaw);
+        const accessRoutes: RouteRecordRaw[] =
+          await permissionStore.getRouters();
+        // router.addRoute(accessRoutes as RouteRecordRaw);
+        accessRoutes.forEach((routerItem) => {
+          router.addRoute(routerItem as RouteRecordRaw);
+        });
         return { path: to.path, replace: true };
       } catch {
         userStore.logout().then((res: any) => {

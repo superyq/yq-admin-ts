@@ -4,6 +4,7 @@ import AppLink from "@/components/AppLink.vue";
 import { MenuOption } from "naive-ui";
 import { IMenu } from "@/model/common.ts";
 import { RouteRecordRaw } from "vue-router";
+import { LAYOUT } from "@/store/key.ts";
 
 const modules = import.meta.glob("../pages/*/index.vue");
 // 字符权限校验
@@ -51,35 +52,72 @@ export const renderIcon =
   () =>
     h(SvgIcon, { name }, null);
 
+// 生成 单个menu
+export const getMenuItem = (item: IMenu) => {
+  let label: any;
+  let key: any = item.menuId;
+  let icon: any = "";
+
+  label =
+    item.menuType == "C"
+      ? () => h(AppLink, { to: item.path }, { default: () => item.menuName })
+      : item.menuName;
+
+  icon = item.icon ? renderIcon(item.icon) : "";
+
+  let baseItem = {
+    label,
+    key,
+    icon,
+    name: item.menuName,
+  };
+
+  !icon && delete baseItem.icon;
+
+  return baseItem;
+};
+
 // 生成 单个路由
 export const getRouterItem = (item: IMenu) => {
   const { path, component } = item;
   return {
     path,
-    name: path.split("/")[1],
+    name: path,
     component: modules[`../pages/${component}`],
     meta: {
-      title: item.menuName
-    }
+      title: item.menuName,
+    },
   };
 };
 
 // 生成 路由组件
-export const getAayncRouter = (routers: IMenu[]): RouteRecordRaw => {
+export const getAayncRouter = (
+  routers: IMenu[],
+  isP = false
+): RouteRecordRaw[] => {
   let arr: RouteRecordRaw[] = [];
 
   routers.forEach((item) => {
-    if (item.menuType == "C" && item.status) {
+    if (!item.status) {
+      return;
+    }
+
+    if (item.menuType == "C") {
       arr.push(getRouterItem(item));
+    } else if (item.menuType == "M") {
+      const layout = {
+        path: item.path,
+        component: !isP ? LAYOUT : "",
+        children: getAayncRouter(item.children as IMenu[], true),
+        meta: {
+          title: item.menuName,
+        },
+      };
+      arr.push(layout);
     }
   });
 
-  return {
-    path: "/layout",
-    name: "layout",
-    component: () => import("@/layout/index.vue"),
-    children: arr,
-  };
+  return arr;
 };
 
 // 生成 naive-ui 侧边栏导航
@@ -87,23 +125,7 @@ export const getSiderMenu = (routers: IMenu[]): MenuOption[] => {
   let arr: any[] = [];
   routers.forEach((item) => {
     if (item.status && item.menuType != "F") {
-      let label: any;
-      let key: any = item.menuId;
-      let icon: any = "";
-
-      label =
-        item.menuType == "C"
-          ? () =>
-              h(AppLink, { to: item.path }, { default: () => item.menuName })
-          : item.menuName;
-      icon = item.icon ? renderIcon(item.icon) : "";
-      let baseItem = {
-        label,
-        key,
-        icon,
-        name: item.menuName,
-      };
-      !icon && delete baseItem.icon;
+      const baseItem = getMenuItem(item);
 
       if (
         item.children &&
