@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from "vue";
+import { ref, watchEffect, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { usePermissionStore } from "@/store/permission.ts";
 import { useTagStore } from "@/store/tag.ts";
@@ -19,22 +19,19 @@ const menuOptions = computed(() => {
 });
 
 let activeMenuValue = ref(1067);
-watch(
-  () => route.path,
-  () => {
-    // activeMenuValue.value = route.path;
-    // permissionStore.activeMenuValue = route.path;
-  },
-  { immediate: true, deep: true }
-);
+watchEffect(() => {
+  activeMenuValue.value = route.path;
+  permissionStore.activeMenuValue = route.path;
+});
 
 // 新增 tag
-const obj = { title: route.meta.title, key: route.name };
+const obj = { title: route.meta.title, key: route.path };
 tagStore.addTag(obj);
 
 const handleUpdateMenu = (value, item) => {
+  console.log("menuItem", item);
   // 新增 tag
-  tagStore.addTag(item);
+  tagStore.addTag({ ket: item.key, title: item.name });
   activeMenuValue.value = value;
 };
 </script>

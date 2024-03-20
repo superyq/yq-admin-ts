@@ -55,7 +55,7 @@ export const renderIcon =
 // 生成 单个menu
 export const getMenuItem = (item: IMenu) => {
   let label: any;
-  let key: any = item.menuId;
+  let key: any = item.path;
   let icon: any = "";
 
   label =
@@ -82,7 +82,7 @@ export const getRouterItem = (item: IMenu) => {
   const { path, component } = item;
   return {
     path,
-    name: path,
+    name: path.split("/").splice(-1)[0],
     component: modules[`../pages/${component}`],
     meta: {
       title: item.menuName,

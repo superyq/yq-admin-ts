@@ -25,7 +25,6 @@ export const usePermissionStore = defineStore({
             const routerData: RouteRecordRaw[] = getAayncRouter(
               toTreeData(deepClone(data), 0) as IMenu[]
             );
-            console.log(1, routerData);
             resolve(routerData);
           })
           .catch((err) => {

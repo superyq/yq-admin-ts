@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import { NTag } from "naive-ui";
 import { useTagStore } from "@/store/tag.ts";
 import { usePermissionStore } from "@/store/permission.ts";
 import { useRouter } from "vue-router";
@@ -24,13 +23,13 @@ function handleClose(key) {
 function handleCheck(item) {
   let { key } = item;
   permissionStore.activeMenuValue = key;
-  router.push(`/${key}`);
+  router.push(key);
 }
 </script>
 
 <template>
   <div class="layout-header__tag">
-    <n-tag
+    <NTag
       v-for="item in tags"
       :key="item.key"
       class="tag-item"
@@ -39,7 +38,7 @@ function handleCheck(item) {
       size="small"
       @close="handleClose(item.key)"
       @click="handleCheck(item)"
-      >{{ item.title }}</n-tag
+      >{{ item.title }}</NTag
     >
   </div>
 </template>

@@ -2,6 +2,10 @@ import { LAYOUT } from "@/store/key.ts";
 
 export const baseRouter = [
   {
+    path: "/",
+    redirect: "/home",
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("@/pages/login/index.vue"),
@@ -26,7 +30,6 @@ export const baseRouter = [
         },
       },
       {
-        alias: "/",
         path: "/home",
         name: "home",
         component: () => import("@/pages/home/index.vue"),
