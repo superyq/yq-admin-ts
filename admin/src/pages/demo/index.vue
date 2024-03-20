@@ -23,12 +23,8 @@ const handleLogin = () => {
     onNegativeClick: () => {},
   });
   login(params)
-    .then((res) => {
-      console.log(1, res);
-    })
-    .catch((err) => {
-      console.log(2, err);
-    });
+    .then(() => {})
+    .catch(() => {});
 };
 
 let text = ref("123");
@@ -68,9 +64,7 @@ const data = [
   },
 ];
 const pages = ref(uiPagePages);
-const pageChange = (page: IPages) => {
-  console.log(2, page);
-};
+const pageChange = (page: IPages) => {};
 
 const formValue = ref({
   name: "",

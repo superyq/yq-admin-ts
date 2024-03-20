@@ -34,7 +34,6 @@ tagStore.addTag(obj);
 
 const handleUpdateMenu = (value, item) => {
   // 新增 tag
-  console.log(value, item);
   tagStore.addTag(item);
   activeMenuValue.value = value;
 };

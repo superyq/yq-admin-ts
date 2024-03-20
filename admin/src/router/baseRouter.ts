@@ -1,14 +1,20 @@
+import { LAYOUT } from "@/store/key.ts";
+
 export const baseRouter = [
   {
     path: "/login",
     name: "login",
     component: () => import("@/pages/login/index.vue"),
+    meta: {
+      title: "登录",
+    },
   },
   {
-    path: "/system",
-    component: () => import("@/layout/index.vue"),
+    path: "/",
+    component: LAYOUT,
     meta: {
-      title: '系统管理'
+      title: "首页",
+      hidden: true,
     },
     children: [
       {
@@ -16,8 +22,8 @@ export const baseRouter = [
         name: "demo",
         component: () => import("@/pages/demo/index.vue"),
         meta: {
-          title: 'demo'
-        }
+          title: "demo",
+        },
       },
       {
         alias: "/",
@@ -25,34 +31,44 @@ export const baseRouter = [
         name: "home",
         component: () => import("@/pages/home/index.vue"),
         meta: {
-          title: "首页"
-        }
+          title: "首页",
+        },
       },
+    ],
+  },
+  {
+    path: "/userInfo",
+    component: LAYOUT,
+    meta: {
+      title: "个人中心",
+      hidden: true,
+    },
+    children: [
       {
-        path: "/editpassword",
-        name: "editpassword",
-        component: () => import("@/pages/editpassword/index.vue"),
-        meta: {
-          title: '修改密码'
-        }
-      },
-      {
-        path: "/userinfo",
+        path: "userinfo",
         name: "userinfo",
         component: () => import("@/pages/userinfo/index.vue"),
         meta: {
-          title: '用户信息'
-        }
+          title: "个人信息",
+        },
       },
-      // 所有未知页面都是404
       {
-        path: "/:pathMatch(.*)*",
-        name: 'NotFound',
-        component: () => import("@/pages/404/index.vue"),
+        path: "editpassword",
+        name: "editpassword",
+        component: () => import("@/pages/editpassword/index.vue"),
         meta: {
-          title: '404'
-        }
+          title: "修改密码",
+        },
       },
     ],
+  },
+  // 所有未知页面都是404
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/pages/404/index.vue"),
+    meta: {
+      title: "404",
+    },
   },
 ];

@@ -9,7 +9,6 @@ export default {
     const hasPermi = checkPermi(value);
 
     if (!hasPermi) {
-      console.log(2);
       el.parentNode && el.parentNode.removeChild(el);
     }
   },

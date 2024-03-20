@@ -61,7 +61,7 @@ let handleSelect = (key, item) => {
     let obj = { title: item.label, key };
     tagStore.addTag(obj);
 
-    router.push(`/${key}`);
+    router.push(`/userInfo/${key}`);
   } else {
     window.$dialog.warning({
       closable: false,

@@ -8,7 +8,7 @@ defineProps({
   },
 });
 const change = () => {
-  console.log(1);
+  // console.log(1);
 };
 </script>
 

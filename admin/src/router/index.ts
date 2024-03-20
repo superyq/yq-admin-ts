@@ -21,7 +21,6 @@ router.beforeEach(async (to) => {
   const userStore = useUserStore();
   const permissionStore = usePermissionStore();
   NProgress.start();
-  console.log('to', to)
   if (getToken()) {
     if (to.path === "/login") {
       return { path: "/" };

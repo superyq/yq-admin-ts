@@ -6,6 +6,8 @@ declare module "vue-router" {
   interface RouteMeta {
     isAdmin?: boolean;
     transition?: string;
-    requiresAuth: boolean;
+    title?: string;
+    hidden?: boolean;
+    requiresAuth?: boolean;
   }
 }

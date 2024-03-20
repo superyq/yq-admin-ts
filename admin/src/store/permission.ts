@@ -22,7 +22,6 @@ export const usePermissionStore = defineStore({
 
             const treeData = toTreeData(sData, 0);
             this.siderMenu = getSiderMenu(treeData as IMenu[]);
-            console.log(this.siderMenu)
 
             const routerData = getAayncRouter(rData);
             resolve(routerData);
