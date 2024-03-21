@@ -57,10 +57,7 @@ let cancelLogOut = () => {
 };
 let handleSelect = (key, item) => {
   if (["userinfo", "editpassword"].includes(key)) {
-    // 新增 tag
     let obj = { title: item.label, key };
-    tagStore.addTag(obj);
-
     router.push(`/userInfo/${key}`);
   } else {
     window.$dialog.warning({

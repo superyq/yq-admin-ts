@@ -11,20 +11,24 @@ export const useTagStore = defineStore({
   },
   getters: {
     tagsKey: (state) => {
-      return state.tags.map((tag) => tag.key);
+      return state.tags.map((tag) => {
+        return tag.key;
+      });
+    },
+    activeTag: (state) => {
+      return state.tags[state.activeTagIndex].key;
     },
   },
   actions: {
     addTag(tag: ITag) {
-      console.log("tagsKey", this.tagsKey);
-      console.log("tags", this.tags);
       if (!this.tagsKey.includes(tag.key)) {
         this.tags.push(tag);
       }
     },
     removeTag(key: string) {
       let index = this.tagsKey.indexOf(key);
-      this.tags.splice(index, 1);
+      // this.tags.splice(index, 1);
+      this.tags.pop();
       this.activeTagIndex = index - 1;
     },
   },

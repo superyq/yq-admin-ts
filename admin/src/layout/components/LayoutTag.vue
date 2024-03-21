@@ -1,10 +1,12 @@
 <script setup>
-import { computed } from "vue";
+import { computed, watchEffect } from "vue";
 import { useTagStore } from "@/store/tag.ts";
 import { usePermissionStore } from "@/store/permission.ts";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import { watch } from "vue";
 
 const router = useRouter();
+const route = useRoute();
 const tagStore = useTagStore();
 const permissionStore = usePermissionStore();
 
@@ -12,19 +14,28 @@ let tags = computed(() => {
   return tagStore.tags;
 });
 
-function handleClose(key) {
+watch(
+  () => route.path,
+  (value) => {
+    const obj = { title: route.meta.title, key: value };
+    tagStore.addTag(obj);
+  },
+  {
+    immediate: true,
+  }
+);
+
+const handleClose = (key) => {
   tagStore.removeTag(key);
 
   if (permissionStore.activeMenuValue == key) {
-    permissionStore.activeMenuValue = tags.value[tagStore.activeTagIndex].key;
-    router.push(`/${permissionStore.activeMenuValue}`);
+    router.push(tagStore.activeTag);
   }
-}
-function handleCheck(item) {
+};
+const handleCheck = (item) => {
   let { key } = item;
-  permissionStore.activeMenuValue = key;
   router.push(key);
-}
+};
 </script>
 
 <template>
@@ -33,7 +44,7 @@ function handleCheck(item) {
       v-for="item in tags"
       :key="item.key"
       class="tag-item"
-      :closable="item.key !== 'home'"
+      :closable="item.key !== '/home'"
       :type="item.key == permissionStore.activeMenuValue ? 'success' : ''"
       size="small"
       @close="handleClose(item.key)"

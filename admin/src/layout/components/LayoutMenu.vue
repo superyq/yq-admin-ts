@@ -18,20 +18,13 @@ const menuOptions = computed(() => {
   return permissionStore.siderMenu;
 });
 
-let activeMenuValue = ref(1067);
+let activeMenuValue = ref();
 watchEffect(() => {
   activeMenuValue.value = route.path;
   permissionStore.activeMenuValue = route.path;
 });
 
-// 新增 tag
-const obj = { title: route.meta.title, key: route.path };
-tagStore.addTag(obj);
-
 const handleUpdateMenu = (value, item) => {
-  console.log("menuItem", item);
-  // 新增 tag
-  tagStore.addTag({ ket: item.key, title: item.name });
   activeMenuValue.value = value;
 };
 </script>
