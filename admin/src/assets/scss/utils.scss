@@ -6,8 +6,29 @@
   margin-top: 20px;
 }
 
+.u__pt-20 {
+  padding-top: 20px;
+}
+
+.u__pb-20 {
+  padding-bottom: 20px;
+}
+
 .u__mr-5 {
   margin-right: 5px;
+}
+
+.u__flex {
+  display: flex;
+}
+
+.u__flex-ac {
+  display: flex;
+  align-items: center;
+}
+
+.u__flex-shark-0 {
+  flex-shrink: 0;
 }
 
 .u__flex-c {

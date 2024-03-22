@@ -1,10 +1,18 @@
-<script setup></script>
+<script setup lang="ts">
+import { useActionStore } from "@/store/action.ts";
+import { computed } from "vue";
+
+const actionStore = useActionStore();
+let refreh = computed(() => {
+  return actionStore.refreh;
+})
+</script>
 
 <template>
   <div class="layout-content">
     <RouterView v-slot="{ Component, route }">
       <Transition mode="out-in" :name="route.meta.transition || 'mainFade'">
-        <component :is="Component" :key="route.path"></component>
+        <component :is="Component" :key="route.path" v-if="refreh"></component>
       </Transition>
     </RouterView>
   </div>

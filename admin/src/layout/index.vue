@@ -5,6 +5,7 @@ import LayoutCrumbs from "./components/LayoutCrumbs.vue"; //
 import LayoutUser from "./components/LayoutUser.vue"; //
 import LayoutTag from "./components/LayoutTag.vue"; // 页面标签
 import LayoutContent from "./components/LayoutContent.vue"; // 页面内容
+import LayoutAction from "./components/LayoutAction.vue"; // 页面内容
 
 let bordered = ref(true); // 边框显示
 let inverted = ref(false); // 背景色反转
@@ -43,9 +44,12 @@ const handleEnter = () => {
       <NLayoutHeader :bordered="bordered">
         <div class="layout-header__box">
           <!-- 面包屑 -->
-          <LayoutCrumbs></LayoutCrumbs>
+          <LayoutCrumbs />
+          <div style="flex: 1"></div>
+          <!-- 控制栏 -->
+          <LayoutAction />
           <!-- 用户信息 -->
-          <LayoutUser></LayoutUser>
+          <LayoutUser />
         </div>
         <LayoutTag></LayoutTag>
         <div class="layout-header__shadow"></div>
@@ -66,7 +70,6 @@ const handleEnter = () => {
 .layout-header__box {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
   height: 50px;
