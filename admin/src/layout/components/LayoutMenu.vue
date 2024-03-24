@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watchEffect, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { usePermissionStore } from "@/store/permission.ts";
@@ -43,8 +43,8 @@ const handleUpdateMenu = (value, item) => {
   <!-- menu组件 -->
   <NMenu
     :inverted="inverted"
-    :indent="10"
-    :root-indent="15"
+    :indent="2"
+    :root-indent="2"
     :options="menuOptions"
     :value="activeMenuValue"
     @update:value="handleUpdateMenu"

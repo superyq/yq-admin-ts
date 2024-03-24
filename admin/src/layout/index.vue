@@ -6,6 +6,7 @@ import LayoutUser from "./components/LayoutUser.vue"; //
 import LayoutTag from "./components/LayoutTag.vue"; // 页面标签
 import LayoutContent from "./components/LayoutContent.vue"; // 页面内容
 import LayoutAction from "./components/LayoutAction.vue"; // 页面内容
+import CopeRight from "@/components/CopyRight.vue";
 
 let bordered = ref(true); // 边框显示
 let inverted = ref(false); // 背景色反转
@@ -57,6 +58,7 @@ const handleEnter = () => {
       <NLayoutContent>
         <LayoutContent></LayoutContent>
       </NLayoutContent>
+      <CopeRight color="#18a058" />
     </NLayout>
   </NLayout>
 </template>
@@ -70,7 +72,7 @@ const handleEnter = () => {
 .layout-header__box {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   height: 50px;
   border-bottom: 1px solid rgb(239, 239, 245);

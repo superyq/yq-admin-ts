@@ -5,7 +5,7 @@ import { computed } from "vue";
 const actionStore = useActionStore();
 let refreh = computed(() => {
   return actionStore.refreh;
-})
+});
 </script>
 
 <template>
@@ -21,7 +21,7 @@ let refreh = computed(() => {
 <style lang="scss" scoped>
 .layout-content {
   padding: 20px;
-  margin: 20px;
+  margin: 10px;
   min-height: calc(100vh - 170px);
   border: 1px solid #e9e9e9;
   border-radius: 5px;

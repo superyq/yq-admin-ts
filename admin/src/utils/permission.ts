@@ -50,7 +50,7 @@ export const checkRole = (value: string[]): boolean => {
 export const renderIcon =
   (name: string): Function =>
   () =>
-    h(SvgIcon, { name }, null);
+    h(SvgIcon, { name, size: "16" }, null);
 
 // 生成 单个menu
 export const getMenuItem = (item: IMenu) => {
@@ -63,7 +63,7 @@ export const getMenuItem = (item: IMenu) => {
       ? () => h(AppLink, { to: item.path }, { default: () => item.menuName })
       : item.menuName;
 
-  icon = item.icon ? renderIcon(item.icon) : "";
+  icon = item.icon ? renderIcon(item.icon) : renderIcon("menu");
 
   let baseItem = {
     label,

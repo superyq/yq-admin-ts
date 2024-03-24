@@ -9,7 +9,7 @@ export interface IPages {
 }
 
 export interface ITag {
-  title: string;
+  title?: string;
   key: string;
 }
 
