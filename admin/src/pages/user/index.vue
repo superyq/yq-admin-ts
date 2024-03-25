@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Search from "@/pages/user/components/Search.vue";
+</script>
 
 <template>
-  <div class="index">user</div>
+  <View>
+    <template #search>
+      <Search />
+    </template>
+  </View>
 </template>
 
 <style lang="scss" scoped></style>

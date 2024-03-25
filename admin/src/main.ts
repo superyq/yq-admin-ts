@@ -10,6 +10,8 @@ import initC from "./components/naive-ui";
 // svg 组件
 import SvgIcon from "@/components/SvgIcon.vue";
 import "virtual:svg-icons-register";
+// view 组件
+import View from "@/components/View.vue";
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -19,5 +21,6 @@ app.use(directive);
 app.use(pinia);
 app.use(router);
 app.component("svg-icon", SvgIcon);
+app.component("View", View);
 
 app.mount("#app");
