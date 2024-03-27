@@ -52,11 +52,10 @@ const pageSizeChange = (pages) => {
 
 <style lang="scss" scoped>
 .g-search-box {
-  display: flex;
-  flex-wrap: wrap;
-}
-.g-search-box > div {
-  margin: 0 15px 15px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-gap: 10px 20px;
+  margin-bottom: 10px;
 }
 .g-control-box {
   display: flex;
