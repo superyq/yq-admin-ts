@@ -34,8 +34,8 @@ router.beforeEach(async (to) => {
       try {
         await userStore.getInfo();
         const accessRoutes: RouteRecordRaw[] =
-          await permissionStore.getRouters() as RouteRecordRaw[];
-          
+          (await permissionStore.getRouters()) as RouteRecordRaw[];
+
         accessRoutes.forEach((routerItem) => {
           router.addRoute(routerItem as RouteRecordRaw);
         });

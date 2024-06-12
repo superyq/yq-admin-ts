@@ -66,8 +66,8 @@ export default defineConfig(({ command }) => {
       cssCodeSplit: true,
       emptyOutDir: true,
       rollupOptions: {
-        external: ["@amap/amap-jsapi-loader"]
-      }
+        external: ["@amap/amap-jsapi-loader"],
+      },
     },
   };
 });
