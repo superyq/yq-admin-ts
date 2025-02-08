@@ -12,3 +12,4 @@ declare module "file-saver";
 declare module "@wangeditor/editor-for-vue";
 declare module "v-viewer";
 declare module "@amap/amap-jsapi-loader";
+declare module "@antv/x6";

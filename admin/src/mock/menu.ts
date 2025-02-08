@@ -193,6 +193,19 @@ export const tableData = [
     parentId: 3,
     path: "/component/map",
   },
+  {
+    menuName: "流程图",
+    icon: "",
+    sort: 6,
+    perms: "",
+    component: "X6/index.vue",
+    status: 1,
+    createTime: "2022-11-16 15:20:06",
+    menuType: "C",
+    menuId: 308,
+    parentId: 3,
+    path: "/component/X6",
+  },
 ];
 
 export const detailData = {

@@ -60,6 +60,7 @@ declare module 'vue' {
     UploadFile: typeof import('./src/components/UploadFile.vue')['default']
     VideoUpload: typeof import('./src/components/VideoUpload.vue')['default']
     View: typeof import('./src/components/View.vue')['default']
+    X6: typeof import('./src/components/X6.vue')['default']
     YAvatar: typeof import('./src/components/naive-ui/YAvatar.vue')['default']
     YButton: typeof import('./src/components/naive-ui/YButton.vue')['default']
     YCard: typeof import('./src/components/naive-ui/YCard.vue')['default']
